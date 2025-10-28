@@ -22,6 +22,8 @@ public class PlayerScript : MonoBehaviour
 
     private Rigidbody rb;
 
+    public Transform SpawnPoint;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -73,6 +75,11 @@ public class PlayerScript : MonoBehaviour
         if (collision.gameObject.tag == "Ground")
         {
             IsGrounded = true;
+        }
+
+        if (collision.gameObject.tag == "DeathZone")
+        {
+            transform.position = SpawnPoint.position;
         }
     }
 
