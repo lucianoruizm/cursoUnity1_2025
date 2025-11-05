@@ -10,6 +10,8 @@ public class PlayerScript : MonoBehaviour
 
     public float JumpForce = 5f;
 
+    private bool isWinner;
+
     // Camara
     public float Sensibility = 2f;
     public float LimitX = 45;
@@ -80,6 +82,12 @@ public class PlayerScript : MonoBehaviour
         if (collision.gameObject.tag == "DeathZone")
         {
             transform.position = SpawnPoint.position;
+        }
+
+        if (collision.gameObject.tag == "End" && !isWinner)
+        {
+            UIManager.inst.ShowWinScreen();
+            isWinner = true;
         }
     }
 
