@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -11,6 +13,9 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI TimeCounterWin;
     private float TimeSeconds;
     private int TimeMinutes;
+    public Button RetryButton;
+    public Button MainMenuButton;
+
     private bool Win;
 
     public GameObject WinScreen;
@@ -18,6 +23,11 @@ public class UIManager : MonoBehaviour
     void Awake()
     {
         inst = this;
+
+        RetryButton.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        });
     }
 
     public void ShowWinScreen()
@@ -26,6 +36,8 @@ public class UIManager : MonoBehaviour
         Win = true;
         TimeCounterWin.text = "Tiempo: " + TimeMinutes + ":" + Mathf.Ceil(TimeSeconds);
         TimeCounterGameplay.gameObject.SetActive(false);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     void Update()
