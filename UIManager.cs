@@ -11,14 +11,18 @@ public class UIManager : MonoBehaviour
 
     public TextMeshProUGUI TimeCounterGameplay;
     public TextMeshProUGUI TimeCounterWin;
+    public TextMeshProUGUI CurrentTimeCounter;
     private float TimeSeconds;
     private int TimeMinutes;
     public Button RetryButton;
+    public Button ContinueButton;
     public Button MainMenuButton;
 
     private bool Win;
+    public bool Pause;
 
     public GameObject WinScreen;
+    public GameObject PauseScreen;
 
     void Awake()
     {
@@ -27,6 +31,15 @@ public class UIManager : MonoBehaviour
         RetryButton.onClick.AddListener(() =>
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        });
+
+        ContinueButton.onClick.AddListener(() =>
+        {
+            Pause = false;
+            PauseScreen.SetActive(false);
+            TimeCounterGameplay.gameObject.SetActive(true);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         });
     }
 
@@ -40,9 +53,19 @@ public class UIManager : MonoBehaviour
         Cursor.visible = true;
     }
 
+    public void ShowPauseScreen()
+    {
+        PauseScreen.SetActive(true);
+        Pause = true;
+        CurrentTimeCounter.text = "Tiempo actual: " + TimeMinutes + ":" + Mathf.Ceil(TimeSeconds);
+        TimeCounterGameplay.gameObject.SetActive(false);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
     void Update()
     {
-        if (!Win)
+        if (!Win && !Pause)
         {
             TimeSeconds += Time.deltaTime;
 

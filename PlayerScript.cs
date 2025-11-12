@@ -38,7 +38,7 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         // Movimiento
-        if (!isWinner)
+        if (!isWinner && !UIManager.inst.Pause)
         {
             float x = Input.GetAxis("Horizontal");
             float y = Input.GetAxis("Vertical");
@@ -64,6 +64,12 @@ public class PlayerScript : MonoBehaviour
             rotationX = Mathf.Clamp(rotationX, -LimitX, LimitX);
             cam.localRotation = Quaternion.Euler(rotationX, 0, 0);
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * Sensibility, 0);
+
+            // Pausa
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                UIManager.inst.ShowPauseScreen();
+            }
         }
     }
 
