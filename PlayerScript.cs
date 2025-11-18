@@ -26,10 +26,14 @@ public class PlayerScript : MonoBehaviour
 
     public Transform SpawnPoint;
 
+    private AudioSource source;
+    public AudioClip JumpSound;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        source = GetComponent<AudioSource>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -78,6 +82,7 @@ public class PlayerScript : MonoBehaviour
         if (IsGrounded)
         {
             rb.AddForce(new Vector3(0, JumpForce, 0), ForceMode.Impulse);
+            source.PlayOneShot(JumpSound);
         }
     }
 

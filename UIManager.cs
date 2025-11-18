@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     public Button RetryButton;
     public Button ContinueButton;
     public Button MainMenuButton;
+    public Button MainMenuPauseButton;
 
     private bool Win;
     public bool Pause;
@@ -40,6 +41,16 @@ public class UIManager : MonoBehaviour
             TimeCounterGameplay.gameObject.SetActive(true);
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+        });
+
+        MainMenuButton.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene(0);
+        });
+
+        MainMenuPauseButton.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene(0);
         });
     }
 
